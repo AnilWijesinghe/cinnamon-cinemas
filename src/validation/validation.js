@@ -14,5 +14,12 @@ const seatsAlreadyFilledValidation = (seats)=>{
  if(availableSeats.length===0) throw new Error('Seats are already filled in the theatre');
 };
 
+const availableSeatsValidation = (seats)=>{
 
-module.exports = {inputValidation,seatsAlreadyFilledValidation};
+
+};
+
+
+module.exports = {inputValidation,
+                  seatsAlreadyFilledValidation,
+                  availableSeatsValidation};
