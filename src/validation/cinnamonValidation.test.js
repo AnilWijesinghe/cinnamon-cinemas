@@ -1,4 +1,4 @@
-const validation = require('./validation');
+const validation = require('./cinnamonValidation');
 
 
 test("check input in between 1 and 3",()=>{
