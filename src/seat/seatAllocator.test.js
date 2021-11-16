@@ -29,6 +29,27 @@ describe("Seat allocator flow",()=>{
         expect(validateSeatsAvailability)
             .toHaveBeenCalledTimes(1);
         expect(seatAllocate).toBe('Your seats are A1 A2 A3');
+    });
+    test("2nd input",()=>{
+        //Arrange
+        const noOfSeats = 3;
+        let seats = {A1:true,A2:true,A3:true,A4:true,A5:true,B1:true,B2:false,B3:false,B4:false,B5:false,C1:false,C2:false,C3:false,C4:false,C5:false};
+        //Act
+        const seatAllocate = seatAllocator.allocateSeats(noOfSeats);
+        // Assert
+        expect(validateAllSeatsFilled)
+            .toHaveBeenCalledWith(seats);
+        expect(validateAllSeatsFilled)
+            .toHaveBeenCalledTimes(2);
+        expect(validateNoOFSeatsInput)
+            .toHaveBeenCalledWith(noOfSeats);
+        expect(validateNoOFSeatsInput)
+            .toHaveBeenCalledTimes(2);
+        expect(validateSeatsAvailability)
+            .toHaveBeenCalledWith(seats,noOfSeats);
+        expect(validateSeatsAvailability)
+            .toHaveBeenCalledTimes(2);
+        expect(seatAllocate).toBe('Your seats are A4 A5 B1');
     })
 });
 
