@@ -93,5 +93,35 @@ describe("Seat allocator flow",()=>{
             .toHaveBeenCalledTimes(4);
         expect(seatAllocate).toBe('Your seats are B5 C1 C2');
     })
+    test("edge case, B row seat allocate",()=>{
+        //Arrange
+        const noOfSeats = 2;
+        let seats = {A1:true,A2:true,A3:true,A4:true,A5:true,B1:true,B2:true,B3:true,B4:true,B5:true,C1:true,C2:true,C3:true,C4:true,C5:false};
+        //Act
+        const seatAllocate = seatAllocator.allocateSeats(noOfSeats);
+        // Assert
+        expect(validateAllSeatsFilled)
+            .toHaveBeenCalledWith(seats);
+        expect(validateAllSeatsFilled)
+            .toHaveBeenCalledTimes(5);
+        expect(validateNoOFSeatsInput)
+            .toHaveBeenCalledWith(noOfSeats);
+        expect(validateNoOFSeatsInput)
+            .toHaveBeenCalledTimes(5);
+        expect(validateSeatsAvailability)
+            .toHaveBeenCalledWith(seats,noOfSeats);
+        expect(validateSeatsAvailability)
+            .toHaveBeenCalledTimes(5);
+        expect(seatAllocate).toBe('Your seats are C3 C4');
+    })
+    test("edge case, test for request seats more than availability",()=>{
+        //Arrange
+        const noOfSeats = 2;
+        let seats = {A1:true,A2:true,A3:true,A4:true,A5:true,B1:true,B2:true,B3:true,B4:true,B5:true,C1:true,C2:true,C3:true,C4:true,C5:false};
+        //Act & Assert
+        expect(() => {
+            seatAllocator.allocateSeats(noOfSeats);
+        }).toThrowError('No seats available for customer input');
+    })
 });
 
