@@ -6,15 +6,17 @@ let seats = {A1:false,A2:false,A3:false,A4:false,A5:false,B1:false,B2:false,B3:f
 
 const allocateSeats = (noOfSeats)=>{
     let allocatedSeats = '';
+    // validation
     validation.validateAllSeatsFilled(seats);
     validation.validateRequestSeats(noOfSeats);
     validation.validateSeatsAvailability(seats,noOfSeats);
+    // Seats iterate and find the available seats
     Object.entries(seats).forEach(([seat, filled])=>{
         if(!filled){
             if(noOfSeats>0){
                 allocatedSeats = allocatedSeats.concat(' '+seat);
                 seats[seat] = true;
-                noOfSeats = noOfSeats-1;
+                noOfSeats--;
             }
         }
     });

@@ -10,8 +10,7 @@ const validateSeatsAvailability = jest.spyOn(validation, 'validateSeatsAvailabil
 describe("Seat allocator flow",()=>{
     test("Edge case first seat allocation",()=>{
         //Arrange
-        //const noOfSeats = randomNofSeats.mockImplementation(() => 3);
-        const noOfSeats = 3;
+        const noOfSeats = 3; // Should be get value this from random pick value mock
         let seats = {A1:true,A2:true,A3:true,A4:false,A5:false,B1:false,B2:false,B3:false,B4:false,B5:false,C1:false,C2:false,C3:false,C4:false,C5:false};
         //Act
         const seatAllocate = seatAllocator.allocateSeats(noOfSeats);
@@ -32,7 +31,7 @@ describe("Seat allocator flow",()=>{
     });
     test("Edge case A and B row seat allocate",()=>{
         //Arrange
-        const noOfSeats = 3;
+        const noOfSeats = 3; // Should be get value this from random pick value mock
         let seats = {A1:true,A2:true,A3:true,A4:true,A5:true,B1:true,B2:false,B3:false,B4:false,B5:false,C1:false,C2:false,C3:false,C4:false,C5:false};
         //Act
         const seatAllocate = seatAllocator.allocateSeats(noOfSeats);
@@ -53,7 +52,7 @@ describe("Seat allocator flow",()=>{
     })
     test("edge case, B row seat allocate",()=>{
         //Arrange
-        const noOfSeats = 3;
+        const noOfSeats = 3; // Should be get value this from random pick value mock
         let seats = {A1:true,A2:true,A3:true,A4:true,A5:true,B1:true,B2:true,B3:true,B4:true,B5:false,C1:false,C2:false,C3:false,C4:false,C5:false};
         //Act
         const seatAllocate = seatAllocator.allocateSeats(noOfSeats);
@@ -74,7 +73,7 @@ describe("Seat allocator flow",()=>{
     })
     test("edge case, B row and C ror seat allocate",()=>{
         //Arrange
-        const noOfSeats = 3;
+        const noOfSeats = 3; // Should be get value this from random pick value mock
         let seats = {A1:true,A2:true,A3:true,A4:true,A5:true,B1:true,B2:true,B3:true,B4:true,B5:true,C1:true,C2:true,C3:false,C4:false,C5:false};
         //Act
         const seatAllocate = seatAllocator.allocateSeats(noOfSeats);
@@ -95,7 +94,7 @@ describe("Seat allocator flow",()=>{
     })
     test("edge case, B row seat allocate",()=>{
         //Arrange
-        const noOfSeats = 2;
+        const noOfSeats = 2; // Should be get value this from random pick value mock
         let seats = {A1:true,A2:true,A3:true,A4:true,A5:true,B1:true,B2:true,B3:true,B4:true,B5:true,C1:true,C2:true,C3:true,C4:true,C5:false};
         //Act
         const seatAllocate = seatAllocator.allocateSeats(noOfSeats);
@@ -125,7 +124,7 @@ describe("Seat allocator flow",()=>{
     })
     test("edge case, last seat allocate",()=>{
         //Arrange
-        const noOfSeats = 1;
+        const noOfSeats = 1; // Should be get value this from random pick value mock
         let seats = {A1:true,A2:true,A3:true,A4:true,A5:true,B1:true,B2:true,B3:true,B4:true,B5:true,C1:true,C2:true,C3:true,C4:true,C5:true};
         //Act
         const seatAllocate = seatAllocator.allocateSeats(noOfSeats);
@@ -143,6 +142,15 @@ describe("Seat allocator flow",()=>{
         expect(validateSeatsAvailability)
             .toHaveBeenCalledTimes(7);
         expect(seatAllocate).toBe('Your seats are C5');
+    })
+    test("edge case, all seats filled",()=>{
+        //Arrange
+        const noOfSeats = 1;
+        let seats = {A1:true,A2:true,A3:true,A4:true,A5:true,B1:true,B2:true,B3:true,B4:true,B5:true,C1:true,C2:true,C3:true,C4:true,C5:true};
+        //Act & Assert
+        expect(() => {
+            seatAllocator.allocateSeats(noOfSeats);
+        }).toThrowError('Seats are already filled in the theatre');
     })
 });
 
