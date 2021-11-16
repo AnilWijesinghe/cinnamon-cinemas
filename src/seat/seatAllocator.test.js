@@ -123,5 +123,26 @@ describe("Seat allocator flow",()=>{
             seatAllocator.allocateSeats(noOfSeats);
         }).toThrowError('No seats available for customer input');
     })
+    test("edge case, last seat allocate",()=>{
+        //Arrange
+        const noOfSeats = 1;
+        let seats = {A1:true,A2:true,A3:true,A4:true,A5:true,B1:true,B2:true,B3:true,B4:true,B5:true,C1:true,C2:true,C3:true,C4:true,C5:true};
+        //Act
+        const seatAllocate = seatAllocator.allocateSeats(noOfSeats);
+        // Assert
+        expect(validateAllSeatsFilled)
+            .toHaveBeenCalledWith(seats);
+        expect(validateAllSeatsFilled)
+            .toHaveBeenCalledTimes(7);
+        expect(validateNoOFSeatsInput)
+            .toHaveBeenCalledWith(noOfSeats);
+        expect(validateNoOFSeatsInput)
+            .toHaveBeenCalledTimes(7);
+        expect(validateSeatsAvailability)
+            .toHaveBeenCalledWith(seats,noOfSeats);
+        expect(validateSeatsAvailability)
+            .toHaveBeenCalledTimes(7);
+        expect(seatAllocate).toBe('Your seats are C5');
+    })
 });
 
